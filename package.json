@@ -1,0 +1,10 @@
+{
+    "name": "discord_bot",
+    "description": "description",
+    "authors": "author",
+    "version": "1.0.0",
+    "main": "./bot.js",
+    "dependencies": {
+        "discord.js": "^12.2.0"
+    }
+}
