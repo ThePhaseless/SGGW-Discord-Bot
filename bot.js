@@ -18,11 +18,10 @@ client.on('ready', () => {
 });
 // if message is sent in the channel with id CHANNEL_ID in the guild with id GUILD_ID
 client.on('message', (message) => {
-  console.log(`${message.author.username} said: ${message.content}`);
   if (message.guild.id === GUILD_ID && message.channel.id === CHANNEL_ID) {
     // log the message
     // add the message to the senders nickname
-    var nickname = message.member.nickname || message.author.username;
+    var nickname = message.member.nickname;
     var inicial = ""
     // if the message has at least 2 words, use the first word and the first letters of the rest of the words
     if (message.content.split(' ').length > 1) {
@@ -43,7 +42,6 @@ client.on('message', (message) => {
     // set the nickname
     message.member.setNickname(inicial + ' | ' + nickname);
     message.member.roles.add(ROLE_ID);
-
   }
 });
 // get token from environment variable
