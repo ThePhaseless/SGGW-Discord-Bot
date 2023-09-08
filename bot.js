@@ -7,11 +7,20 @@ const ROLE_ID = "1149823675764330588";
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
+  // set the bot status
+  client.user.setPresence({
+    status: 'online',
+    activity: {
+      name: 'jak zrobić bombę wodorową...',
+      type: 'WATCHING',
+    },
 });
 
 // if message is sent in the channel with id CHANNEL_ID in the guild with id GUILD_ID
 client.on('message', (message) => {
+  console.log(`${message.author.username} said: ${message.content}`);
   if (message.guild.id === GUILD_ID && message.channel.id === CHANNEL_ID) {
+    // log the message
     // add the message to the senders nickname
     var nickname = message.member.nickname || message.author.username;
     var inicial = ""
@@ -37,6 +46,5 @@ client.on('message', (message) => {
     
   }
 });
-
 // get token from environment variable
 client.login(process.env.BOT_TOKEN);
