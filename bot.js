@@ -14,8 +14,8 @@ client.on('ready', () => {
       name: 'jak zrobić bombę wodorową...',
       type: 'WATCHING',
     },
+  });
 });
-
 // if message is sent in the channel with id CHANNEL_ID in the guild with id GUILD_ID
 client.on('message', (message) => {
   console.log(`${message.author.username} said: ${message.content}`);
@@ -36,14 +36,14 @@ client.on('message', (message) => {
       // if the message has only one word, use whole word
       inicial = message.content;
     }
-    
+
     // log the message
     console.log(`${nickname} inicial is ${inicial}`);
-    
-      // set the nickname
-      message.member.setNickname(inicial + ' | ' + nickname);
-      message.member.roles.add(ROLE_ID);
-    
+
+    // set the nickname
+    message.member.setNickname(inicial + ' | ' + nickname);
+    message.member.roles.add(ROLE_ID);
+
   }
 });
 // get token from environment variable
