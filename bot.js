@@ -11,7 +11,7 @@ client.on('ready', () => {
   client.user.setPresence({
     status: 'online',
     activity: {
-      name: 'jak zrobić bombę wodorową...',
+      name: 'jak umilić Ci życie',
       type: 'WATCHING',
     },
   });
