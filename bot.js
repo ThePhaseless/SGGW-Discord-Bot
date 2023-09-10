@@ -22,6 +22,12 @@ client.on('message', (message) => {
     // log the message
     // add the message to the senders nickname
     var nickname = message.member.nickname;
+
+    // retrive original nickname if the user has already have a initial
+    if (nickname.includes('|')) {
+      nickname = nickname.split('|')[1].trim();
+    }
+
     var inicial = "";
     // if the message has at least 2 words, use the first word and the first letters of the rest of the words
     if (message.content.split(' ').length > 1) {
