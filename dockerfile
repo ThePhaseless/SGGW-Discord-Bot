@@ -1,11 +1,11 @@
-FROM node:20-slim
+FROM oven/bun
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN bun install
 
-COPY . .
+COPY ./bot.js ./bot.js
 
-CMD ["node", "bot.js"]
+CMD ["bun", "bot.js"]
