@@ -77,5 +77,4 @@ if (token === undefined) {
   client.login(token);
 }
 
-// get token from environment variable
 client.login(token);
