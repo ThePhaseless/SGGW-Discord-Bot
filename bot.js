@@ -5,11 +5,23 @@ const GUILD_ID = '1148257084698275840';
 const CHANNEL_ID = '1149818259462439003';
 const ROLE_ID = "1149823675764330588";
 
-client.on('ready', () => {
-  // set the bot's activity
-  client.user.setActivity('na śmierć i życie', { type: 'PLAYING' });
+console.log("Starting bot...");
 
-  console.log(`Logged in as ${client.user.tag}`);
+// set commitSHA to dev if using local version
+commitSHA = process.env.GH_SHA;
+if (commitSHA === undefined) {
+  commitSHA = "dev";
+}
+
+client.on('ready', () => {
+  client.user.setPresence({ 
+    status: 'online',
+    activity: {
+      name: 'SGGW',
+      type: 'COMPETING',
+    }
+  });
+  console.log(`Logged in as ${client.user.tag}, commit: ` + commitSHA);
 });
 // if message is sent in the channel with id CHANNEL_ID in the guild with id GUILD_ID
 client.on('message', (message) => {
@@ -48,12 +60,22 @@ client.on('message', (message) => {
       console.log(`${nickname}s nickname is too long, shortening to ${newNickname}`);
 
       // send a dm to the user
-      message.author.send(`Twój nick z initialami jest za długi, skracam do ${newNickname}`);
+      message.author.send(`Twój nick z initialami byłby za długi, skracam do ${newNickname}`);
     }
     // set the nickname
     message.member.setNickname(inicial + ' | ' + nickname);
     message.member.roles.add(ROLE_ID);
   }
 });
+
+token = process.env.BOT_TOKEN;
+
+// get token from file if env variable is not set
+if (token === undefined) {
+  const fs = require('fs');
+  const token = fs.readFileSync('token.txt', 'utf8');
+  client.login(token);
+}
+
 // get token from environment variable
-client.login(process.env.BOT_TOKEN);
+client.login(token);

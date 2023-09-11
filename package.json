@@ -1,10 +1,10 @@
 {
-    "name": "discord_bot",
-    "description": "description",
-    "authors": "author",
+    "name": "sggw_discord_bot",
+    "description": "Bot created for Warsaw University of Life Sciences Compuer Science discord",
+    "authors": "ThePhaseless",
     "version": "1.0.0",
     "main": "./bot.js",
     "dependencies": {
-        "discord.js": "^12.2.0"
+        "discord.js": "^14.13.0"
     }
 }
