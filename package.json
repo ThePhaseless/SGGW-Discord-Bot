@@ -3,7 +3,7 @@
     "description": "Bot created for Warsaw University of Life Sciences Compuer Science discord",
     "authors": "ThePhaseless",
     "version": "1.0.0",
-    "main": "./bot.js",
+    "main": "./bot.ts",
     "dependencies": {
         "discord.js": "^14.0.0"
     }
