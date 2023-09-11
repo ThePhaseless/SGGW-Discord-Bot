@@ -6,15 +6,10 @@ const CHANNEL_ID = '1149818259462439003';
 const ROLE_ID = "1149823675764330588";
 
 client.on('ready', () => {
+  // set the bot's activity
+  client.user.setActivity('na śmierć i życie', { type: 'PLAYING' });
+
   console.log(`Logged in as ${client.user.tag}`);
-  // set the bot status
-  client.user.setPresence({
-    status: 'online',
-    activity: {
-      name: 'jak przeżyć na studiach',
-      type: 'WATCHING',
-    },
-  });
 });
 // if message is sent in the channel with id CHANNEL_ID in the guild with id GUILD_ID
 client.on('message', (message) => {
@@ -44,16 +39,16 @@ client.on('message', (message) => {
 
     // log the message
     console.log(`${nickname} inicial is ${inicial}`);
-    
-    var newnickname = inicial + ' | ' + nickname;
-    if (newnickname.length > 32) {
-      newnickname = newnickname.substring(0, 32);
+
+    var newNickname = inicial + ' | ' + nickname;
+    if (newNickname.length > 32) {
+      newNickname = newNickname.substring(0, 32);
 
       // log the message
-      console.log(`${nickname}s nickname is too long, shortening to ${newnickname}`);
+      console.log(`${nickname}s nickname is too long, shortening to ${newNickname}`);
 
       // send a dm to the user
-      message.author.send(`Twój nick z initialami jest za długi, skracam do ${newnickname}`);
+      message.author.send(`Twój nick z initialami jest za długi, skracam do ${newNickname}`);
     }
     // set the nickname
     message.member.setNickname(inicial + ' | ' + nickname);
