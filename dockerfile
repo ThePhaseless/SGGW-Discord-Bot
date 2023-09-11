@@ -9,6 +9,6 @@ RUN bun install
 # pass a variable to the environment from host
 ENV GH_SHA=$GH_SHA
 
-COPY ./bot.js ./bot.js
+COPY ./bot.ts ./bot.ts
 
-CMD ["bun", "bot.js"]
+CMD ["bun", "bot.ts"]
