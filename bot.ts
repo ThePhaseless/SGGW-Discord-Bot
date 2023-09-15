@@ -15,36 +15,43 @@ const ROLE_ID = '1149823675764330588';
 console.log('Starting bot...');
 
 // function to change nickname
-function changeNickname(user: GuildMember, messageContent: string) {
-  let nickname = user.nickname;
+function changeNickname(guildMember: GuildMember, messageContent: string) {
+  let nickname: string = guildMember.nickname as string;
 
   if (nickname === null) {
     // if the user doesn't have a nickname, use their username
-    nickname = user.user.username;
+    nickname = guildMember.user.username;
   }
 
   // retrieve original nickname if the user already has an initial
   if (nickname.includes('|')) {
+    // nickname is everything before the first '|'
     nickname = nickname.split('|')[1].trim();
   }
 
-  let initials = '';
-  // if the message has at least 2 words, use the first word and the first letters of the rest of the words
-  if (messageContent.split(' ').length > 1) {
-    const words = messageContent.split(' ');
-    initials = words[0];
-    for (let i = 1; i < words.length; i++) {
-      initials += ' ' + words[i].charAt(0).toUpperCase() + '.';
-    }
-  } else {
-    // if the message has only one word, use the whole word
-    initials = messageContent;
+  let name: string = '';
+  let initials: Array<string> = [];
+
+  // split the message into words
+  const words = messageContent.split(' ');
+  name = words[0];
+  for (let i = 1; i < words.length; i++) {
+    initials.push(words[i][0]);
   }
+
 
   // log the message
   console.log(`${nickname} initials are ${initials}`);
 
-  let newNickname = initials + ' | ' + nickname;
+  let newNickname: string = name + initials.join('. ');;
+
+  // check if user has a name as a nickname, if not 
+  if (nickname.toLowerCase() != name.toLowerCase()) {
+    newNickname = newNickname + ` | ${nickname}`;
+  }
+
+
+  // if the new nickname is too long, shorten it and send a dm to the user
   if (newNickname.length > 32) {
     newNickname = newNickname.substring(0, 32);
 
@@ -52,24 +59,30 @@ function changeNickname(user: GuildMember, messageContent: string) {
     console.log(`${nickname}'s nickname is too long, shortening to ${newNickname}`);
 
     // send a dm to the user
-    user.send(`Twój nick z initialami byłby za długi, skracam do ${newNickname}`);
+    guildMember.send(`Twój nick z initialami byłby za długi, skracam do ${newNickname}`);
   }
+
   // set the nickname
-  user.setNickname(initials + ' | ' + nickname);
-  user.roles.add(ROLE_ID);
+  guildMember.setNickname(newNickname);
+
+  // add the role
+  guildMember.roles.add(ROLE_ID);
 }
 
+
 // set commitSHA to dev if using a local version
-let commitSHA = process.env.GH_SHA;
-if (commitSHA === undefined) {
+let commitSHA: string = '';
+if (process.env.GH_SHA === undefined) {
   commitSHA = 'dev';
+}
+else {
+  commitSHA = process.env.GH_SHA;
 }
 
 client.on('ready', () => {
   if (client.user === null) {
     return;
   }
-
 
   // set the bot's status
   client.user.setPresence({
