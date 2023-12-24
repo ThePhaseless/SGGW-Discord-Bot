@@ -35,6 +35,9 @@ function changeNickname(guildMember: GuildMember, messageContent: string) {
   // split the message into words
   const words = messageContent.split(' ');
   name = words[0];
+  // Change name to lowercase with the first letter uppercase
+  name = name.toLowerCase();
+  name = name.charAt(0).toUpperCase() + name.slice(1);
   for (let i = 1; i < words.length; i++) {
     initials.push(words[i][0]);
   }
