@@ -16,17 +16,17 @@ console.log('Starting bot...');
 
 // function to change nickname
 function changeNickname(guildMember: GuildMember, messageContent: string) {
-  let nickname: string = guildMember.nickname as string;
+  let ogNickname: string = guildMember.nickname as string;
 
-  if (nickname === null) {
+  if (ogNickname === null) {
     // if the user doesn't have a nickname, use their username
-    nickname = guildMember.user.username;
+    ogNickname = guildMember.user.username;
   }
 
   // retrieve original nickname if the user already has an initial
-  if (nickname.includes('|')) {
+  if (ogNickname.includes('|')) {
     // nickname is everything before the first '|'
-    nickname = nickname.split('|')[1].trim();
+    ogNickname = ogNickname.split('|')[1].trim();
   }
 
   let name: string = '';
@@ -39,27 +39,22 @@ function changeNickname(guildMember: GuildMember, messageContent: string) {
     initials.push(words[i][0]);
   }
 
+  console.log(`${ogNickname} initials are ${initials}`);
 
-  // log the message
-  console.log(`${nickname} initials are ${initials}`);
-
-  let newNickname: string = name + initials.join('. ');;
-
-  // check if user has a name as a nickname, if not 
-  if (nickname.toLowerCase() != name.toLowerCase()) {
-    newNickname = newNickname + ` | ${nickname}`;
+  let nameWithInitials: string = name;
+  if (initials.length > 0) {
+    nameWithInitials = nameWithInitials + ` ${initials.join(". ")}`;
   }
 
+  let newNickname: string = `${ogNickname} | ${nameWithInitials}`;
 
   // if the new nickname is too long, shorten it and send a dm to the user
-  if (newNickname.length > 32) {
-    newNickname = newNickname.substring(0, 32);
-
-    // log the message
-    console.log(`${nickname}'s nickname is too long, shortening to ${newNickname}`);
+  if (nameWithInitials.length > 32) {
+    nameWithInitials = nameWithInitials.substring(0, 29) + '...';
+    console.log(`${ogNickname} 's nickname is too long, shortening to ${nameWithInitials}`);
 
     // send a dm to the user
-    guildMember.send(`Twój nick z initialami byłby za długi, skracam do ${newNickname}`);
+    guildMember.send(`Twój nick z initiałami byłby za długi, skracam do ${nameWithInitials}`);
   }
 
   // set the nickname
