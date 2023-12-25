@@ -1,10 +1,16 @@
 {
-    "name": "sggw_discord_bot",
-    "description": "Bot created for Warsaw University of Life Sciences Compuer Science discord",
-    "authors": "ThePhaseless",
-    "version": "1.0.0",
-    "main": "./bot.ts",
-    "dependencies": {
-        "discord.js": "^14.0.0"
-    }
+  "name": "sggw_discord_bot",
+  "description": "Bot created for Warsaw University of Life Sciences Compuer Science discord",
+  "authors": "ThePhaseless",
+  "version": "1.0.0",
+  "main": "./bot.ts",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.56.0",
+    "tslog": "^4.9.2",
+    "typescript": "^5.3.3"
+  }
 }
