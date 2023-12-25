@@ -8,4 +8,8 @@ RUN bun install
 
 COPY ./ /app
 
-CMD ["bun", "bot.ts"]
+CMD [
+    "bun", "deploy_commands.ts",
+    "&&",
+    "bun", "bot.ts"
+    ]
