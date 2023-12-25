@@ -6,9 +6,6 @@ COPY package*.json ./
 
 RUN bun install
 
-# pass a variable to the environment from host
-ENV GH_SHA=$GH_SHA
-
-COPY ./bot.ts ./bot.ts
+COPY ./ /app
 
 CMD ["bun", "bot.ts"]
