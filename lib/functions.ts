@@ -3,7 +3,6 @@ import { CHANNEL_ID, ROLE_ID } from "./consts";
 import { client, log } from "../bot";
 
 function generateNewNickname(messageContent: string, ogNickname: string) {
-
     // retrieve original nickname if the user already has an initial
     if (ogNickname.includes('|')) {
         // nickname is everything before the first '|'
@@ -48,10 +47,14 @@ function changeNickname(guildMember: GuildMember, messageContent: string) {
     }
 
     // set the nickname
-    guildMember.setNickname(newNickname);
+    guildMember.setNickname(newNickname)
+        .catch((err) => {
+            throw err;
+        }
+        );
 
     // add the role
-    guildMember.roles.add(ROLE_ID);
+    return guildMember.roles.add(ROLE_ID);
 }
 
 function triggerOnMessage(message: Message) {
@@ -71,8 +74,14 @@ function triggerOnMessage(message: Message) {
             message.author.send('Wystąpił błąd, spróbuj ponownie później');
             return;
         }
-        changeNickname(message.member, message.content);
-        message.react('✅');
+        changeNickname(message.member, message.content)
+            .catch((err) => {
+                log.error(err);
+                message.react('❌');
+                message.author.send('Wystąpił błąd, napisz do administracji');
+            }).then(() => {
+                message.react('✅');
+            });
     }
 }
 
